@@ -7,7 +7,7 @@ form.addEventListener('input', throttle(handleInput, 500));
 form.addEventListener('submit', onFormSubmit);
 fillFormField();
 
-const data = {};
+let data = {};
 
 function handleInput(evt) {
   data[evt.target.name] = evt.target.value;
@@ -24,13 +24,17 @@ function onFormSubmit(evt) {
     console.log(savedData);
     evt.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
+    data = {};
   }
 }
 
 function fillFormField() {
   const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  if (savedData) {
+  if (savedData?.email) {
     form.elements.email.value = savedData.email;
+  }
+
+  if (savedData?.message) {
     form.elements.message.value = savedData.message;
   }
 }
