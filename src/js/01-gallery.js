@@ -19,7 +19,7 @@ const markup = galleryItems.reduce(
 
 gallery.insertAdjacentHTML('beforeend', markup);
 
-new SimpleLightbox('.gallery .gallery__item', {
+new SimpleLightbox('.gallery__item', {
   captionsData: 'alt',
   captionPosition: 'bottom',
   captionDelay: 250,
