@@ -10,9 +10,19 @@ fillFormField();
 let data = {};
 
 function handleInput(evt) {
-  data[evt.target.name] = evt.target.value;
+  data[evt.target.name] = evt.target.value.trim();
 
+  checkData(data);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function checkData(obj) {
+  if (!obj?.email) {
+    obj.email = form.elements.email.value;
+  }
+  if (!obj?.message) {
+    obj.message = form.elements.message.value.trim();
+  }
 }
 
 function onFormSubmit(evt) {
