@@ -4,6 +4,7 @@ const STORAGE_KEY = 'product-to-basket';
 const list = document.querySelector('.list-card');
 const openModalBtn = document.querySelector('[data-modal-open]');
 const basketList = document.querySelector('.list-basket');
+const form = document.querySelector('.form');
 const basket = [];
 
 const markup = instruments
@@ -52,13 +53,21 @@ function fillBasket() {
   } else {
     const markup = savedData
       .map(
-        ({ img, name, price }) => ` <li class="list-basket-item">
-    <img src = "${img}" alt = "${name}" width="200"/>
-        <div><h2 class="title">${name}</h2>
+        ({ img, name, qty, price }) => ` <li class="list-basket-item">
+    <img src = "${img}" alt = "${name}" width="100"/>
+        <h2 class="title">${name}</h2>
+        <p>${qty} шт.</p>
         <p>${price}</p>
       </li>`
       )
       .join('');
-    basketList.insertAdjacentHTML('beforeend', markup);
+    basketList.innerHTML = markup;
+    const sum = savedData.reduce(
+      (acc, data) => (acc += data.qty * data.price),
+      0
+    );
+    console.log(sum);
+    form.innerHTML = `<p>Сума до сплати: ${sum}</p>
+          <button>Сплатити</button>`;
   }
 }
